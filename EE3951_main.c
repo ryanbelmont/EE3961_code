@@ -40,13 +40,13 @@ void adc_init()
     AD1PCFGbits.PCFG0 = 0;      // setup I/O
     
     AD1CON2bits.VCFG = 0b000;   // AVDD (3.3v) and AVSS 0v as min and max
-    AD1CON3bits.ADCS = 2;       // 3*tcy
+    AD1CON3bits.ADCS = 0;       // 1*tcy = TAD
     AD1CON1bits.SSRC = 0b010;   // end sample and convert at timer 3 rollover
-    AD1CON3bits.SAMC = 2;       // 3*TAD auto sample  
-    AD1CON1bits.FORM = 0;
+    AD1CON3bits.SAMC = 13;       // 13*TAD auto sample  
+    AD1CON1bits.FORM = 0;       // output is in the form of unsigned int
     
-    AD1CON1bits.ASAM = 1;
-    AD1CON2bits.SMPI = 0; // interrupt after 1 conversion
+    AD1CON1bits.ASAM = 1;       // auto  sampler auto sets SAMP - automatically begin sampling after conversion finishes
+    AD1CON2bits.SMPI = 0b1111; // interrupt after 1 conversion
     AD1CON1bits.ADON = 1;
     
     _AD1IF = 0;
