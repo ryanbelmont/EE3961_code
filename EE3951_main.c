@@ -39,7 +39,7 @@ void adc_init()
     TRISAbits.TRISA0 = 1;
     AD1PCFGbits.PCFG0 = 0;      // setup I/O
     
-    AD1CON2bits.VCFG = 0b000;   // AVDD (3.3v) and AVSS 0v as min and max
+    AD1CON2bits.VCFG = 0b001;   // External Vref+ pin and Vref- is GND
     AD1CON3bits.ADCS = 0;       // 1*tcy = TAD
     AD1CON1bits.SSRC = 0b010;   // end sample and convert at timer 3 rollover
     AD1CON3bits.SAMC = 13;       // 13*TAD auto sample  
@@ -52,7 +52,7 @@ void adc_init()
     _AD1IF = 0;
     _AD1IE = 1;
     
-    TMR3 = 0; // settup timer 3
+    TMR3 = 0; // setup timer 3
     T3CON = 0;
     T3CONbits.TCKPS = 0b10; // 1:64 prescale
     PR3 = 15000-1; // .06 seconds 
